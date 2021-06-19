@@ -1,6 +1,6 @@
 {
   "name": "@djplaner/university-date-calendar",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Singelton helper for university-date component",
   "main": "university-date-calendar.js",
   "module": "university-date-calendar.js",
