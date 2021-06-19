@@ -4,9 +4,28 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-//import {LitElement, html, css} from 'lit';
-
-const DEFAULT_PERIOD = '3211';
+// Calendar for Griffith University
+// Period is represented by a foru digit number - an STRM
+// XYYP 
+// - X is the type of offering
+//   - 2 indicates OUA course
+//   - 3 indicates normal Griffith course
+// - YY is the year (last two digits) 
+//   - 19 is 2019
+//   - 21 is 2021
+// - P is the particular period for the offering
+//   - OUA has study periods
+//     - 1 = period 1 
+//     - 3 = period 2
+//     - 5 = period 3
+//     - 7 = period 4
+//   - Griffith has 3 trimesters
+//     - 1 = T1
+//     - 5 = T2
+//     - 8 = T3
+      // courseCode_STRM_mode
+// default period is the current main trimester
+const DEFAULT_PERIOD = '3215';
 /* Griffith Calendar Term dates
  * 2021
  * - OUA Study Periods 1-4
@@ -429,12 +448,6 @@ class UniversityDateCalendarBroker extends HTMLElement {
     return 'university-date-calendar-broker';
   }
 
-  hello() {
-    console.log(
-      `hello from university-date-calendar period is ${this.defaultPeriod}`
-    );
-  }
-
   constructor() {
     super();
     this.defaultPeriod = DEFAULT_PERIOD;
@@ -461,28 +474,28 @@ class UniversityDateCalendarBroker extends HTMLElement {
   /**
    * getCurrentPeriod
    * @returns value matching the current period for a GU blackboard site
+   * If unable figure out the title, return default period
    */
 
   getCurrentPeriod() {
-    // GU current trimester is in the courseMenu_link element
-    // set to a default
-    const courseTitle = document
-      .querySelector('#courseMenu_link')
-      .getAttribute('title');
-
-    if (courseTitle === null) {
-      return null;
+    // GU current period should be in the courseMenu_link element
+    const titleElement = document.getElementById('courseMenu_link');
+    if ( titleElement===null){
+      return this.defaultPeriod;
     }
+    // the title attribute contains a string with the period (in the courseId)
+    const courseTitle = titleElement.getAttribute('title');
 
-    // get the course id which will be in brackets
+    // get the course id (incl. period) will be in brackets
     let m = courseTitle.match(/^.*\((.+)\)/);
     let id;
     let breakIdRe;
 
-    // we found a course Id, get the STRM value
+    // we found a course Id (something in brackets), try to get the STRM value
     if (m) {
       id = m[1];
       // break the course Id up into its components
+      // courseCode_STRM_mode
 
       // Look for OUA Courses e.g. COM10_2211_OT
       breakIdRe = new RegExp(
@@ -529,6 +542,7 @@ class UniversityDateCalendarBroker extends HTMLElement {
         return m[3];
       }
     }
+    return this.defaultPeriod;
   }
 }
 
