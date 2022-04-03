@@ -26,7 +26,7 @@
 //     - 8 = T3
 // courseCode_STRM_mode
 // default period is the current main trimester
-const DEFAULT_PERIOD = '3215';
+const DEFAULT_PERIOD = '3221';
 /* Griffith Calendar Term dates
  * 2021
  * - OUA Study Periods 1-4
@@ -48,7 +48,7 @@ const DEFAULT_PERIOD = '3215';
  */
 
 const CALENDAR = {
-  3221: {
+  '3221': {
     0: { start: "2022-03-07", stop: "2022-03-13" },
     1: { start: "2022-03-14", stop: "2022-03-20" },
     2: { start: "2022-03-21", stop: "2022-03-28" },
@@ -86,7 +86,7 @@ const CALENDAR = {
     15: { start: "2022-06-20", stop: "2022-07-26" },
     exam: { start: "2022-06-13", stop: "2022-06-25" },
   },
-  3225: {
+  '3225': {
     0: { start: "2022-07-11", stop: "2022-07-17" },
     1: { start: "2022-07-18", stop: "2022-07-24" },
     2: { start: "2022-07-25", stop: "2022-07-31" },
@@ -533,7 +533,8 @@ const CALENDAR = {
  * @slot - This element has a slot
  * @csspart button - The button
  */
-class UniversityDateCalendarBroker extends HTMLElement {
+//class UniversityDateCalendarBroker extends HTMLElement {
+export class UniversityDateCalendarBroker  {
   static get properties() {
     return {
       defaultPeriod: { type: String },
@@ -545,7 +546,6 @@ class UniversityDateCalendarBroker extends HTMLElement {
   }
 
   constructor() {
-    super();
     this.defaultPeriod = DEFAULT_PERIOD;
   }
 
@@ -642,6 +642,9 @@ class UniversityDateCalendarBroker extends HTMLElement {
   }
 }
 
+
+/*export function startUniversityDateCalendar() {
+
 // Original approach
 //window.customElements.define('my-element', MyElement);
 
@@ -663,4 +666,6 @@ customElements.define(
   UniversityDateCalendarBroker.tag,
   UniversityDateCalendarBroker
 );
-export { UniversityDateCalendarBroker, UniversityDateCalendarBrokerSingleton };
+}
+//export { UniversityDateCalendarBroker, UniversityDateCalendarBrokerSingleton };
+*/
