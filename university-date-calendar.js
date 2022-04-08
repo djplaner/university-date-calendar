@@ -527,25 +527,13 @@ const CALENDAR = {
   },
 };
 
-/**
- * An example element.
- *
- * @slot - This element has a slot
- * @csspart button - The button
- */
-//class UniversityDateCalendarBroker extends HTMLElement {
-export class UniversityDateCalendarBroker  {
-  static get properties() {
-    return {
-      defaultPeriod: { type: String },
-    };
-  }
 
-  static get tag() {
-    return 'university-date-calendar-broker';
-  }
-
+export class UniversityDateCalendar {
   constructor() {
+    if (UniversityDateCalendar._instance) {
+      return UniversityDateCalendar._instance;
+    }
+    UniversityDateCalendar._instance = this;
     this.defaultPeriod = DEFAULT_PERIOD;
   }
 
@@ -641,31 +629,3 @@ export class UniversityDateCalendarBroker  {
     return this.defaultPeriod;
   }
 }
-
-
-/*export function startUniversityDateCalendar() {
-
-// Original approach
-//window.customElements.define('my-element', MyElement);
-
-// register globally so we can make sure there is only one
-window.UniversityDateCalendarBroker = window.UniversityDateCalendarBroker || {};
-window.UniversityDateCalendarBroker.requestAvailability = () => {
-  // if there is no single instance, generate one and append it to end of the document
-  if (!window.UniversityDateCalendarBroker.instance) {
-    window.UniversityDateCalendarBroker.instance = document.createElement(
-      'university-date-calendar-broker'
-    );
-    document.body.appendChild(window.UniversityDateCalendarBroker.instance);
-  }
-  return window.UniversityDateCalendarBroker.instance;
-};
-// forces appending
-const UniversityDateCalendarBrokerSingleton = window.UniversityDateCalendarBroker.requestAvailability();
-customElements.define(
-  UniversityDateCalendarBroker.tag,
-  UniversityDateCalendarBroker
-);
-}
-//export { UniversityDateCalendarBroker, UniversityDateCalendarBrokerSingleton };
-*/
