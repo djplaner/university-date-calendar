@@ -528,7 +528,7 @@ const CALENDAR = {
 };
 
 
-export class UniversityDateCalendar {
+export default class UniversityDateCalendar {
   constructor() {
     if (UniversityDateCalendar._instance) {
       return UniversityDateCalendar._instance;
